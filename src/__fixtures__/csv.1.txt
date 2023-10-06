@@ -1,0 +1,5 @@
+firstname,lastname,birthday,job title
+sophia,copolla,14/05/1971, director
+ada,loveLACE,10/12/1815,mathematician
+Margaret,Hamilton,17/08/1936,programmer
+Dorothy,Vaughan,20/09/1910,mathematician
