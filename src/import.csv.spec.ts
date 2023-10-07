@@ -45,4 +45,66 @@ describe('parseCsvData', () => {
     const result = importCsv(csvAsString, ',');
     expect(result).toEqual(expectedData);
   });
+
+  it('should import a big file', () => {
+    const csvAsString = fs
+      .readFileSync('src/__fixtures__/bigFile.txt')
+      .toString();
+
+    const records = importCsv(csvAsString, ',');
+
+    const result = records.every(person => !!person.birthday);
+    expect(result).toBeTruthy();
+  });
+
+  it('should support dash separated dates with format MM-DD-YYYY', async () => {
+    const csvAsString = fs
+      .readFileSync('src/__fixtures__/datesWithMonthFirst.txt')
+      .toString();
+
+    const result = importCsv(csvAsString, ',');
+    expect(result).toEqual(expectedData);
+  });
+
+  it('should support dash separated dates with format DD-MM-YYYY', async () => {
+    const csvAsString = fs
+      .readFileSync('src/__fixtures__/datesWithDayFirst.txt')
+      .toString();
+
+    const result = importCsv(csvAsString, ',');
+    expect(result).toEqual(expectedData);
+  });
+
+  it('should throw an error if the headers do not match the expected', async () => {
+    const csvAsString = fs
+      .readFileSync('src/__fixtures__/badHeaders.txt')
+      .toString();
+
+    expect(() => importCsv(csvAsString, ',')).toThrowError(
+      'The file did not match the expected format',
+    );
+  });
+
+  it('should throw an error if the delimiter does not match the file', async () => {
+    const csvAsString = fs
+      .readFileSync('src/__fixtures__/csv.1.txt')
+      .toString();
+
+    expect(() => importCsv(csvAsString, ':')).toThrowError(
+      'The file did not match the expected format',
+    );
+  });
+
+  it.each(['', '12', 'rt', '%^'])(
+    'should throw an error if the delimiter is invalid',
+    async delimiter => {
+      const csvAsString = fs
+        .readFileSync('src/__fixtures__/csv.1.txt')
+        .toString();
+
+      expect(() => importCsv(csvAsString, delimiter)).toThrowError(
+        'The delimiter must be a valid character',
+      );
+    },
+  );
 });

@@ -2,8 +2,10 @@ import moment = require('moment');
 
 const possibleDateFormats = ['MM/DD/YYYY', 'DD/MM/YYYY', 'YYYY/MM/DD'];
 
-export const getDateFormat = (rows: { birthday: string }[]): string => {
-  let inferredDateFormat = null;
+export const getDateFormat = (
+  rows: { birthday: string }[],
+): string | undefined => {
+  let inferredDateFormat = undefined;
 
   for (const dateFormat of possibleDateFormats) {
     const isValidFormat = rows.every(row =>
@@ -16,5 +18,5 @@ export const getDateFormat = (rows: { birthday: string }[]): string => {
     }
   }
 
-  return inferredDateFormat ?? 'DD/MM/YYYY';
+  return inferredDateFormat;
 };
