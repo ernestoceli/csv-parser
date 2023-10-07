@@ -46,6 +46,7 @@
     "@types/node": "^16.11.21"
   },
   "dependencies": {
-    "moment": "^2.29.1"
+    "csv-parse": "^5.5.1",
+    "moment": "^2.29.4"
   }
 }
