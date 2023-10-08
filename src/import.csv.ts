@@ -3,7 +3,7 @@ import { Person } from './types';
 import moment = require('moment');
 import { getDateFormat } from './getDateFormat';
 
-const acceptedHeaders = ['firstname', 'lastname', 'birthday', 'jobTitle'];
+const headers = ['firstname', 'lastname', 'birthday', 'jobTitle'];
 
 export const importCsv = (csv: string, csvDelimiter: string): Person[] => {
   try {
@@ -16,12 +16,12 @@ export const importCsv = (csv: string, csvDelimiter: string): Person[] => {
     const records: { [Property in keyof Person]: string }[] = parse(csv, {
       delimiter: csvDelimiter,
       trim: true,
-      columns: () => acceptedHeaders,
+      columns: () => headers,
     });
 
     const dateFormat = getDateFormat(records);
 
-    const results = [];
+    const results: Person[] = [];
 
     for (const row of records) {
       const person = getPersonFromRow(row, dateFormat);
