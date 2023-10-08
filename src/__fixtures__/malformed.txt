@@ -1,0 +1,5 @@
+firstname,lastname,birthday,job title
+director
+ada,loveLACE,mathematician
+Margaret,Hamilton,17/08/1936,programmer
+Dorothy,mathematician
